@@ -42,7 +42,7 @@ class _HomeState extends State<Home> {
               height: 20,
             ),
             Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 border: Border.all(
                   color: Colors.grey.shade500,
@@ -69,15 +69,21 @@ class _HomeState extends State<Home> {
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
                         final doc = snapshot.data!.docs;
-                        return ListView.builder(
+                        return GridView.builder(
+                          padding: const EdgeInsets.all(8),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2),
                           itemCount: doc.length,
                           itemBuilder: (context, index) {
                             final documentData =
                                 doc[index].data() as Map<String, dynamic>;
                             return ProductCard(
-                              name: 'Name: '+documentData['Product Name'],
-                              minPrice: 'Minimum bid price: '+documentData['Minimum Bid Price'],
+                              name: 'Name: ' + documentData['Product Name'],
+                              minPrice: 'Min bid price: ' +
+                                  documentData['Minimum Bid Price'],
                               piclink: documentData['Image Url'],
+                              docId: doc[index].id,
                             );
                           },
                         );
