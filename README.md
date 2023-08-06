@@ -20,7 +20,7 @@ I faced a error after setting up the firebase with my project the error was --> 
 I solved it by adding this 'multiDexEnabled true' to my android/app/build.gradle file inside defaultConfig  
 
 
-# Step 1:
+# Step 2:
 ## Used Packages:
 
 firebase_storage: It allows to interact with Storage using the default Firebase App.
