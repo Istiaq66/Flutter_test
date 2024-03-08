@@ -20,9 +20,10 @@ I faced a error after setting up the firebase with my project the error was --> 
 I solved it by adding this 'multiDexEnabled true' to my android/app/build.gradle file inside defaultConfig  
 
 
-# Step 1:
+# Step 2:
 ## Used Packages:
 
 firebase_storage: It allows to interact with Storage using the default Firebase App.
-firebase_database: It allows to access data from firebase. I used it to store images a Firestore can't images
+firebase_database: It allows to access data from firebase. I used it to store images as Firestore can't store images.
+
 image_picker: It is used for picking image from device gallery.
