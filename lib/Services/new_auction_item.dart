@@ -7,7 +7,7 @@ class NewAuctionItem {
   
   UploadTask? uploadTask;
 
-  Future addItem(String prodName, String minBidprice, String description,
+  Future addItem(String prodName, String minBidPrice, String description,
       String date, File photo, String userId) async {
     final fileName = basename(photo.path);
     final path = 'files/$fileName';
@@ -22,7 +22,7 @@ class NewAuctionItem {
       'User Id': userId,
       'Product Name': prodName,
       'Product Description': description,
-      'Minimum Bid Price': minBidprice,
+      'Minimum Bid Price': minBidPrice,
       'Date': date,
       'Image Url': urlDownload,
     });
