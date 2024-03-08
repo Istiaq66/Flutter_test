@@ -1,4 +1,5 @@
 import 'package:auction_app/Components/floating_action_button.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:auction_app/Components/product_card.dart';
 import 'package:auction_app/Screens/add_new_Item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,15 +14,16 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  //create an auction item
-  void newAuction() {
-    setState(() {});
-  }
-
   @override
   void initState() {
     NewUser().checkUserExistence();
     super.initState();
+  }
+
+  Future<void> _handleRefresh() async {
+    await Future.delayed(const Duration(seconds: 1), () {
+      setState(() {});
+    });
   }
 
   @override
@@ -63,36 +65,38 @@ class _HomeState extends State<Home> {
               height: 20,
             ),
             Expanded(
-                child: FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                    future:
-                        FirebaseFirestore.instance.collection('products').get(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        final doc = snapshot.data!.docs;
-                        return GridView.builder(
-                          padding: const EdgeInsets.all(8),
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2),
-                          itemCount: doc.length,
-                          itemBuilder: (context, index) {
-                            final documentData =
-                                doc[index].data() as Map<String, dynamic>;
-                            return ProductCard(
-                              name: 'Name: ' + documentData['Product Name'],
-                              minPrice: 'Min bid price: ' +
-                                  documentData['Minimum Bid Price'],
-                              piclink: documentData['Image Url'],
-                              docId: doc[index].id,
-                            );
-                          },
-                        );
-                      } else {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                    }))
+                child: LiquidPullToRefresh(
+              onRefresh: _handleRefresh,
+              child: FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                  future:
+                      FirebaseFirestore.instance.collection('products').get(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      final doc = snapshot.data!.docs;
+                      return GridView.builder(
+                        padding: const EdgeInsets.all(8),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2),
+                        itemCount: doc.length,
+                        itemBuilder: (context, index) {
+                          final documentData = doc[index].data();
+                          return ProductCard(
+                            name: 'Name: ' + documentData['Product Name'],
+                            minPrice: 'Min bid price: ' +
+                                documentData['Minimum Bid Price'],
+                            piclink: documentData['Image Url'],
+                            docId: doc[index].id,
+                          );
+                        },
+                      );
+                    } else {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  }),
+            ))
           ],
         ),
       ),

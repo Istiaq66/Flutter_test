@@ -17,7 +17,6 @@ class NewAuctionItem {
     final snapshot = await uploadTask!.whenComplete(() => {});
     final urlDownload = await snapshot.ref.getDownloadURL();
 
-    print(urlDownload);
 
     await FirebaseFirestore.instance.collection('products').add({
       'User Id': userId,

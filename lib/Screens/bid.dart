@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
 import '../Components/my_textfield.dart';
 
 class Bid extends StatelessWidget {
@@ -122,10 +121,10 @@ class Bid extends StatelessWidget {
               ),
             );
           } else {
-            return const CircularProgressIndicator(); // Handle no data case
+            return const Scaffold(body: Center(child: CircularProgressIndicator())); // Handle no data case
           }
         } else {
-          return const CircularProgressIndicator(); // Handle connection state cases
+          return const Scaffold(body: Center(child: CircularProgressIndicator())); // Handle connection state cases
         }
       },
     );
