@@ -9,7 +9,7 @@ class Profile extends StatelessWidget {
 
   //sign user out method
   Future<void> signUserOut() async {
-    final GoogleSignIn googleSignIn = GoogleSignIn();
+    final GoogleSignIn googleSignIn = GoogleSignIn.instance;
     await googleSignIn.signOut();
     await FirebaseAuth.instance.signOut();
   }

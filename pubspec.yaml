@@ -5,30 +5,27 @@ publish_to: 'none'
 
 
 version: 1.0.0+1
-
 environment:
-  sdk: '>=3.0.5 <4.0.0'
+  sdk: ">=3.7.0 <4.0.0"
 
 
 dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.2
-  firebase_core: ^2.15.0
-  firebase_auth: ^4.7.0
-  google_sign_in: ^6.1.4
-  cloud_firestore: ^4.8.3
-  image_picker: ^1.0.1
-  firebase_storage: ^11.2.5
+  cupertino_icons: ^1.0.8
+  firebase_core: ^3.15.0
+  firebase_auth: ^5.6.1
+  google_sign_in: ^7.1.0
+  cloud_firestore: ^5.6.10
+  image_picker: ^1.1.2
+  firebase_storage: ^12.4.8
   liquid_pull_to_refresh: ^3.0.1
-  path: ^1.8.3
+  path: ^1.9.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-
   flutter_lints: ^2.0.0
 
 
@@ -42,14 +39,10 @@ flutter:
       - images/google.png
       - images/logo.png
 
-
-
   fonts:
    - family: Pacifico
      fonts:
       - asset: fonts/Pacifico-Regular.ttf
-      
-
    - family: SourceSans3
      fonts:
       - asset: fonts/SourceSans3-Regular.ttf
