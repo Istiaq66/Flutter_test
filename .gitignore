@@ -19,6 +19,5 @@
 
 # Flutter related
 .dart_tool
-.github
 .idea
 build
