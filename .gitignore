@@ -16,7 +16,6 @@
 **/android/.kotlin/errors/
 *.jks
 
-
 # Flutter related
 .dart_tool
 .idea
