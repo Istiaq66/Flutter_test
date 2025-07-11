@@ -25,14 +25,19 @@ jobs:
 
       - name: Analyze Code (fail only on errors)
         run: |
+          set +e
           flutter analyze > analysis.log
+          ANALYZE_EXIT=$?
           cat analysis.log
+      
           if grep -q "error •" analysis.log; then
             echo "❌ Found errors in flutter analyze"
             exit 1
           else
             echo "✅ No errors found"
+            exit 0
           fi
+
 
       - run: flutter test
 
