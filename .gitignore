@@ -13,4 +13,12 @@
 **/android/key.properties
 **/android/app/.cxx/
 **/android/.kotlin/sessions/
+**/android/.kotlin/errors/
 *.jks
+
+
+# Flutter related
+.dart_tool
+.github
+.idea
+build
