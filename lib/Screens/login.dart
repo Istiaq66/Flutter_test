@@ -135,7 +135,7 @@ class Login extends StatelessWidget {
                 GestureDetector(
                   onTap:
                       // anonymous function
-                      () => AuthService().signInWithGoogle(),
+                      () => AuthService.signInWithGoogle(),
                   child: Container(
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(

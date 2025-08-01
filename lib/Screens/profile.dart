@@ -5,7 +5,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 class Profile extends StatelessWidget {
   Profile({super.key});
 
-  final user = FirebaseAuth.instance.currentUser!;
+  final user = FirebaseAuth.instance.currentUser;
 
   //sign user out method
   Future<void> signUserOut() async {
@@ -35,21 +35,21 @@ class Profile extends StatelessWidget {
               height: 20,
             ),
             CircleAvatar(
-              backgroundImage: NetworkImage(user.photoURL!),
+              backgroundImage: NetworkImage(user?.photoURL ?? 'https://via.placeholder.com/150'),
               radius: 40,
             ),
             const SizedBox(
               height: 20,
             ),
             Text(
-              'Name: ${user.displayName!}',
+              'Name: ${user?.displayName ?? 'No Name'}',
               style: const TextStyle(
                   fontFamily: 'SourceSans3',
                   fontSize: 20,
                   fontWeight: FontWeight.w200),
             ),
             Text(
-              'User email: ${user.email!}',
+              'User email: ${user?.email ?? 'No Email'}',
               style: const TextStyle(
                   fontFamily: 'SourceSans3',
                   fontSize: 20,
