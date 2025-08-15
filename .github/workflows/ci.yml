@@ -7,7 +7,7 @@ on:
 
 jobs:
   flutter_test:
-    name: Run Flutter Test and Analyze
+    name: Run Flutter Analyze and Tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -29,7 +29,6 @@ jobs:
           flutter analyze > analysis.log
           ANALYZE_EXIT=$?
           cat analysis.log
-      
           if grep -q "error •" analysis.log; then
             echo "❌ Found errors in flutter analyze"
             exit 1
@@ -38,9 +37,14 @@ jobs:
             exit 0
           fi
 
-
-      - run: flutter test
-
+      # Skip tests if test folder is missing
+      - name: Run Tests (skip if no tests)
+        run: |
+          if [ -d "test" ]; then
+            flutter test
+          else
+            echo "No tests found, skipping..."
+          fi
 
   build_ios:
     name: Build Flutter (iOS)
@@ -59,8 +63,13 @@ jobs:
 
       - run: flutter pub get
       - run: flutter clean
-      - run: flutter build ios --release --no-codesign
 
+      # Ensure iOS 13 deployment target
+      - name: Set iOS Deployment Target to 13.0
+        run: |
+          sed -i '' 's/platform :ios, .*/platform :ios, "13.0"/' ios/Podfile || echo 'platform :ios, "13.0"' >> ios/Podfile
+
+      - run: flutter build ios --release --no-codesign
 
   build_appbundle:
     name: Build Flutter (Android)
@@ -79,4 +88,8 @@ jobs:
 
       - run: flutter pub get
       - run: flutter clean
-      - run: flutter build appbundle
+
+      - name: Build Android App Bundle
+        run: flutter build appbundle
+        env:
+          GRADLE_OPTS: "-Xmx4g"
